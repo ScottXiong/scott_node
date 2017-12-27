@@ -32,6 +32,8 @@ console.log('server is running ....')
 如果改了端口，配置了防火墙，可能会报错，这时我们要更改防火墙设置，新开一个窗口：
 sudo vi /etc/iptables.up.rules
 在allow http https 下新增一行
--A INPUT -p tcp --dport 8898 -j ACCEPT //想开放哪个端口酒开放哪个端口
+-A INPUT -p tcp --dport 8898 -j ACCEPT //（新增一道门）想开放哪个端口就开放哪个端口
+保存，退出
+sudo iptables-restore < /etc/iptables.up.rules  //重载一下，再通过ip的方式访问，it's OK。 
 ```
 
