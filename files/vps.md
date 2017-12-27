@@ -120,11 +120,18 @@ server{
 sudo nginx -t
 ／／test is successful
 ```
-写配置文件时，一定要保证是英文输入法，不然保存的时候问题就来了：**会把一些坑爹的自负带进去**
+写配置文件时，一定要保证是英文输入法，不然保存的时候问题就来了：**会把一些坑爹的字符带进去**
 ```
 sudo nginx -s reload
 重新打开浏览器访问。。。。铛铛铛^ - ^
-通过浏览器查看一下相应头：server可以看到nginx的版本和ubuntu系统
+通过浏览器查看一下相应头：server可以看到nginx的版本和ubuntu系统，那么如何把这个server信息隐藏呢？
+打开nginx的主配置文件nginx.conf </etc/nginx>
+sudo vi nginx.conf
+//http里面有个Basic Settings,找到#server_tokens off;默认是被注释掉的
+server_tokens off
+:wq!
+sudo service nginx reload
+再次刷新浏览器：server：nginx，不再有版本信息，对外就没有那么透明了^ - ^
 ```
 
 
