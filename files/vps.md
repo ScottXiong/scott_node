@@ -133,6 +133,7 @@ server_tokens off
 sudo service nginx reload
 再次刷新浏览器：server：nginx，不再有版本信息，对外就没有那么透明了^ - ^
 ```
+<img src="../imgs/1.png">
 
 
 
