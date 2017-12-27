@@ -52,7 +52,80 @@ pm2 logs
 ctrl+C //exit
 
 ```
-
+### 配置Nginx反向代理node.js端口
+> 如果服务器有很多个应用，nginx不仅可以实现端口的代理，还可以实现负载均衡，用它来判断是来自哪个域名或者是ip的访问，从而根据特定的规则将这个请求原封不动的转发给特定的端口或者是特定的某几台机器，此处我们的需求是把80端口的请求都转发到8898端口来处理；当然，我们用root权限更改配置也是可以的，不过会放宽权限，从而使系统的安全性降低，而且还有些麻烦。
+```
+sudo service apache2 stop //检测一下有没有apache服务
+update-rc.d -f apache2 remove  //删除apache
+sudo apt-get remove apache2
+sudo apt-get update  //更新一下包列表
+**********************************
+sudo apt-get install nginx
+y
+nginx -v
+cd /etc/nginx/
+ls
+cd conf.d
+ls
+pwd
+sudo vi imooc-com-8898.conf  //新建一个配置文件
+******开始编写配置文件************
+upstream imooc{
+  server 127.0.0.1:8898;
+}
+server{
+  listen: 80;
+  server_name:localhost;
+  
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set-header X-Forward-For $proxy_add_xforwarded_for;
+    proxy_set-header Host Host $http_host;
+    proxy_set-header X-Nginx-Proxy true;
+    
+    proxy_pass http://imooc;
+    proxy_redirect off;
+  }
+}
+**********end*******************
+保存退出
+cd ..
+ls
+sudo vi nginx.conf  ／／可以看到include /etc/nginx/conf.d/*.conf会把所有的配置文件加载进来，所以不用动，退出q！
+接下来测试配置文件有没有问题
+sudo nginx -t
+如果有问题，还需改配置文件
+cd conf.d
+ls
+sudo vi
+************************
+upstream imooc{
+  server 127.0.0.1:8898;
+}
+server{
+  listen 80;
+  server_name 45.77.187.191;
+  
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set-header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_set-header Host Host $http_host;
+    proxy_set-header X-Nginx-Proxy true;
+    
+    proxy_pass http://imooc;
+    proxy_redirect off;
+  }
+}
+********************
+sudo nginx -t
+／／test is successful
+```
+写配置文件时，一定要保证是英文输入法，不然保存的时候问题就来了：**会把一些坑爹的自负带进去**
+```
+sudo nginx -s reload
+重新打开浏览器访问。。。。铛铛铛^ - ^
+通过浏览器查看一下相应头：server可以看到nginx的版本和ubuntu系统
+```
 
 
 
