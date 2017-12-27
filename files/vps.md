@@ -36,4 +36,23 @@ sudo vi /etc/iptables.up.rules
 保存，退出
 sudo iptables-restore < /etc/iptables.up.rules  //重载一下，再通过ip的方式访问，it's OK。 
 ```
+### 借助pm2让node.js常驻
+1.让服务稳定持续的运行 <br>
+> 服务端运行app.js 通过浏览器访问，发现OK，但是ctrl+C或者Ctrl+Q发现只要从终端退出，那肯定是挂了，显然这不是我们要的结果。我们的需求是，让它能长久的在后台运行，即便发生意外挂掉也能自动重启，解决这个问题的方案就是**pm2**
+pm2作用：
+- 运维node本身
+- 发生意外自动重启
+- 收集日志
+```
+因为之前已经安装过，所以可以直接用pm2
+pm2 start app.js
+pm2 list //可以查看开启的所有node服务
+pm2 show app //查看详细信息
+pm2 logs 
+ctrl+C //exit
+
+```
+
+
+
 
