@@ -1,6 +1,15 @@
 ### 环境搭建
-- 45.32.73.24
-- G,n6CyxBLoc{M]a7
+<table style="border:1px solid red;">
+	<tr>
+		<td>45.32.73.24</td>
+		<td>G,n6CyxBLoc{M]a7</td>
+	</tr>
+	<tr>
+		<td>207.246.107.151</td>
+		<td>{eS1qeVP+1#7vu6[</td>
+	</tr>
+</table>
+
 ```
 sudo apt-get install vim openssl build-essential libssl-dev wget curl git 
 再github上找到nvm，下载自动安装执行脚本--nvm
