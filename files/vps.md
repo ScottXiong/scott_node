@@ -1,7 +1,7 @@
 ### 环境搭建
 <table style="border:1px solid red;">
 	<tr>
-		<td>45.32.73.24</td>
+		<td>xx,xx,x,x,x</td>
 		<td>G,n6CyxBLoc{M]a7</td>
 	</tr>
 	<tr>
